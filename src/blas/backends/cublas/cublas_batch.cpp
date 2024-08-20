@@ -687,8 +687,8 @@ inline sycl::event gemm_batch_usm_impl(sycl::queue &queue, transpose *transa, tr
             int64_t offset = 0;
             cublasStatus_t err;
             for (int64_t i = 0; i < group_count; i++) {
-                CUBLAS_ERROR_FUNC_T(
-                    "cublasGemmBatchedEx", cublasGemmBatchedEx, err, handle,
+                CUBLAS_ERROR_FUNC(
+                    cublasGemmBatchedEx, err, handle,
                     get_cublas_operation(transa[i]), get_cublas_operation(transb[i]), (int)m[i],
                     (int)n[i], (int)k[i], &alpha[i], (const void *const *)(a + offset),
                     get_cublas_datatype<cuTypeA>(), (int)lda[i], (const void *const *)(b + offset),

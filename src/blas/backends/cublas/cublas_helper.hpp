@@ -181,14 +181,6 @@ public:
         throw cublas_error(std::string(#name) + std::string(" : "), err); \
     }
 
-#define CUBLAS_ERROR_FUNC_T(name, func, err, handle, ...)                \
-    err = func(handle, __VA_ARGS__);                                     \
-    if (err != CUBLAS_STATUS_SUCCESS) {                                  \
-        throw cublas_error(std::string(name) + std::string(" : "), err); \
-    }                                                                    \
-    cudaStream_t currentStreamId;                                        \
-    CUBLAS_ERROR_FUNC(cublasGetStream, err, handle, &currentStreamId)    \
-
 #define CUBLAS_ERROR_FUNC_SYNC(name, err, handle, ...)                    \
     err = name(handle, __VA_ARGS__);                                      \
     if (err != CUBLAS_STATUS_SUCCESS) {                                   \

@@ -46,8 +46,8 @@ if(NOT ${ONEMKL_SYCL_IMPLEMENTATION} STREQUAL "hipsycl")
     target_link_options(ONEMKL::SYCL::SYCL INTERFACE
           -fsycl-targets=nvptx64-nvidia-cuda)
 
-    message(STATUS "Using ACCP host task")
-    target_compile_definitions(ONEMKL::SYCL::SYCL INTERFACE SYCL_EXT_ACPP_ENQUEUE_CUSTOM_OPERATION)
+  message(STATUS "Using CODEPLAY_ENQUEUE_NATIVE_COMMAND")
+  target_compile_definitions(ONEMKL::SYCL::SYCL INTERFACE SYCL_EXT_CODEPLAY_ENQUEUE_NATIVE_COMMAND)
 endif()
 target_link_libraries(${LIB_OBJ} PUBLIC ONEMKL::SYCL::SYCL ONEMKL::cuBLAS::cuBLAS)
 target_compile_features(${LIB_OBJ} PUBLIC cxx_std_11)

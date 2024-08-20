@@ -67,14 +67,14 @@ static inline void host_task_internal(H &cgh, sycl::queue queue, F f) {
 #else
 template <typename H, typename F>
 static inline void host_task_internal(H &cgh, sycl::queue queue, F f) {
-#ifdef SYCL_EXT_ACPP_ENQUEUE_CUSTOM_OPERATION
-#warning "ACPP Enqueue Custom Operation found"
-    cgh.AdaptiveCpp_enqueue_custom_operation([f, queue](sycl::interop_handle ih) {
+#ifdef SYCL_EXT_CODEPLAY_ENQUEUE_NATIVE_COMMAND
+#warning "SYCL_EXT_CODEPLAY_ENQUEUE_NATIVE_COMMAND found"
+    cgh.ext_codeplay_enqueue_native_command([f, queue](sycl::interop_handle ih) {
         auto sc = CublasScopedContextHandler(queue, ih);
         f(sc);
     });
 #else
-#error "SYCL_EXT_ACPP_ENQUEUE_CUSTOM_OPERATION not defined -- Would default to host_task"
+#error "SYCL_EXT_CODEPLAY_ENQUEUE_NATIVE_COMMAND not defined -- Would default to host_task"
 #endif
 }
 #endif
